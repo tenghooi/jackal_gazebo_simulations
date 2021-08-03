@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+
+<launch>
+
+    <!-- World File -->
+    <arg name="world_file" default="TODO"/>
+    <arg name="x" default="0"/>
+    <arg name="y" default="0"/>
+    <arg name="z" default="0"/>
+    <arg name="roll" default="0"/>
+    <arg name="pitch" default="0"/>
+    <arg name="yaw" default="0"/>
+
+    <!-- Launch Gazebo World -->
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="world_name" value="$(arg world_file)"/>
+        <arg name="use_sim_time" value="true"/>
+        <arg name="debug" value="false"/>
+        <arg name="gui" value="true"/>
+        <arg name="paused" value="false"/>
+        <arg name="recording" value="false"/>
+
+    </include>
+
+    <!-- Parameters for spawning robot using urdf-->
+    <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find jackal_gazebo_simulations)/urdf/jackal_ouster.urdf.xacro'"/>
+
+    <!-- Spawn Jackal with sensor(s)-->
+    <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+          arg="-urdf -model jackal_ouster -param robot_description
+               -x $(arg x) -y $(arg x) -z $(arg x)
+               -R $(arg roll) -P $(arg pitch) -Y $(arg yaw)"
+
+    <!-- Launch Rviz-->
+    <!-- "-d" command meaning load a display config file (.rviz)-->
+    <!-- node name="rviz" pkg="rviz" type="rviz" arg="-d $(find jackal_gazebo_simulations)/rviz/default.rviz" respawn="false"/ -->
+
+
+</launch>
