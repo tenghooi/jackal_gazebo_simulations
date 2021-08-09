@@ -1,9 +1,8 @@
 <?xml version="1.0"?>
 
 <robot name="jackal_ouster" xmlns:xacro="https://ros.org/wiki/xacro">
+  <xacro:include filename="$(find jackal_description)/urdf/jackal.urdf.xacro" />
   <xacro:include filename="$(find jackal_gazebo_simulations/urdf/jackal_ouster.gazebo.xacro"/>
-
-  <xacro:property name="PI" value="3.1415926535897931"/>
 
   <xacro:property name="ouster_px" value="0.0"/>
   <xacro:property name="ouster_py" value="0.0"/>
