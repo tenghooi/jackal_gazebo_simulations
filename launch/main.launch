@@ -3,7 +3,9 @@
 <launch>
 
     <!-- World File -->
-    <arg name="world_file" default="TODO"/>
+    <!-- Specify Gazebo world -->
+    <arg name="world_file" default="$(find jackal_gazebo_simulations)/worlds/office_env_large.world"/>
+    <!-- Robot pose at initialization in the world-->
     <arg name="x" default="0"/>
     <arg name="y" default="0"/>
     <arg name="z" default="0"/>
