@@ -255,13 +255,27 @@
     <origin xyz="${mount_spacing} 0 0" />
   </joint>
 
+  <!-- This field for Ouster OS1-32-->
+  <xacro:property name="lidar_parent_link" value="front_mount"/>
+  <xacro:include filename="$(find ouster_os1_64)/urdf/os1_64.urdf.xacro"/>
+  <xacro:os1_64 parent="${lidar_parent_link}" 
+		name="ouster" 
+		prefix="/os1_cloud_node" 
+		hz="10" 
+		samples="2048"
+		v_samples="64" 
+		reduced="false"
+		gpu="true">
+    <origin xyz="${ouster_px} ${ouster_py} ${ouster_pz}" rpy="0 0 0" />
+  </xacro:os1_64>
+
   <!-- Bring in simulation data for Gazebo. -->
   <xacro:include filename="$(find jackal_gazebo_simulations)/urdf/jackal_ouster.gazebo.xacro"/>
 
   <!-- Optional standard accessories, including their simulation data. The rendering
        of these into the final description is controlled by optenv variables, which
        default each one to off.-->
-  <xacro:include filename="$(find jackal_description)/urdf/accessories.urdf.xacro" />
+  <!-- xacro:include filename="$(find jackal_description)/urdf/accessories.urdf.xacro" /-->
 
   <!-- Optional custom includes. -->
   <!--xacro:include filename="$(optenv JACKAL_URDF_EXTRAS empty.urdf)" /-->
