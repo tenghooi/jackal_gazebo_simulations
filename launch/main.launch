@@ -4,11 +4,14 @@
 
     <!-- World File -->
     <!-- Specify Gazebo world -->
-    <arg name="world_file" default="$(find jackal_gazebo_simulations)/worlds/office_env_large.world"/>
+    <!-- List of worlds: $(find jackal_gazebo)/worlds/jackal_race.world
+                         $(find jackal_gazebo_simulations)/worlds/office_env_large.world
+                         -->
+    <arg name="world_file" default="$(find jackal_gazebo)/worlds/jackal_race.world"/>
     <!-- Robot pose at initialization in the world-->
     <arg name="x" default="0"/>
     <arg name="y" default="0"/>
-    <arg name="z" default="0"/>
+    <arg name="z" default="1"/>
     <arg name="roll" default="0"/>
     <arg name="pitch" default="0"/>
     <arg name="yaw" default="0"/>
@@ -24,14 +27,22 @@
 
     </include>
 
+    <!-- Launch Jackal control allow other teleop publish to /cmd_vel-->
+    <include file="$(find jackal_control)/launch/control.launch" />
+
+    <!-- Spawn robot-->
     <!-- Parameters for spawning robot using urdf-->
-    <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find jackal_gazebo_simulations)/urdf/jackal_ouster.urdf.xacro'"/>
+    <param name="robot_description" command="$(find xacro)/xacro --inorder $(find jackal_gazebo_simulations)/urdf/jackal_ouster.urdf.xacro"/>
 
     <!-- Spawn Jackal with sensor(s)-->
     <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
-          arg="-urdf -model jackal_ouster -param robot_description
+          args="-urdf -model jackal_ouster -param robot_description
                -x $(arg x) -y $(arg x) -z $(arg x)
-               -R $(arg roll) -P $(arg pitch) -Y $(arg yaw)"
+               -R $(arg roll) -P $(arg pitch) -Y $(arg yaw)" />
+
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">
+
+    </node>
 
     <!-- Launch Rviz-->
     <!-- "-d" command meaning load a display config file (.rviz)-->
