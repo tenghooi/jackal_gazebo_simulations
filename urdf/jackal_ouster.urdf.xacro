@@ -6,7 +6,7 @@
 
   <xacro:property name="ouster_px" value="0.0"/>
   <xacro:property name="ouster_py" value="0.0"/>
-  <xacro:property name="ouster_pz" value="0.25"/>
+  <xacro:property name="ouster_pz" value="0.0"/>
 
   <xacro:property name="wheelbase" value="0.262" />
   <xacro:property name="track" value="0.37559" />
@@ -267,7 +267,7 @@
     max_range="100"
 		hz="10" 
 		samples="1024"
-		v_samples="64" 
+		v_samples="32" 
     noise="0.001"
 		reduced="true"
 		gpu="true">
