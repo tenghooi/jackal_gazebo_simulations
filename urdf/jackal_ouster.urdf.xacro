@@ -6,7 +6,7 @@
 
   <xacro:property name="ouster_px" value="0.0"/>
   <xacro:property name="ouster_py" value="0.0"/>
-  <xacro:property name="ouster_pz" value="0.0"/>
+  <xacro:property name="ouster_pz" value="0.4"/>
 
   <xacro:property name="wheelbase" value="0.262" />
   <xacro:property name="track" value="0.37559" />
@@ -256,7 +256,7 @@
   </joint>
 
   <!-- This field for Ouster OS1-32-->
-  <xacro:property name="lidar_parent_link" value="mid_mount"/>
+  <xacro:property name="lidar_parent_link" value="chassis_link"/>
   <xacro:include filename="$(find ouster_os1_64)/urdf/os1_64.urdf.xacro"/>
   <xacro:os1_64 parent="${lidar_parent_link}" 
 		name="ouster" 
@@ -266,7 +266,7 @@
     min_range="0.15" 
     max_range="100"
 		hz="10" 
-		samples="1024"
+		samples="512"
 		v_samples="32" 
     noise="0.001"
 		reduced="true"
